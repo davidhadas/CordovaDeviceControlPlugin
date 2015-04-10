@@ -22,9 +22,13 @@ public class SpeechRecognition extends CordovaPlugin {
     this.callbackContext = callbackContext;
 
         if (ACTION_DISPLAY_DIMENSIONS.equals(action)) {
+           JSONObject resp = new JSONObject();
             DisplayMetrics metrics = new DisplayMetrics();
             WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
             wm.getDefaultDisplay().getMetrics(metrics);
+            resp.metrics = metrics;
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, resp));
+            
             return metrics;
       }
 
