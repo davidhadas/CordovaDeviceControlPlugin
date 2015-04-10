@@ -6,9 +6,9 @@ module.exports = function () {
         this.error = error;
     };
 
-    this.displayDimentions = function() {
+    this.displayDimensions = function() {
         //console.log('SpeechRecognitionPlugin: start');
-        return cordova.exec(this.success, this.error, "DeviceControl", "displayDimentions", []);
+        return cordova.exec(this.success, this.error, "DeviceControl", "displayDimensions", []);
     };
 
 }
