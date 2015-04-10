@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>s
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova.deviceControl" version="1.0.0">
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+  
+    <description>Cordova Device Control Plugin</description>
+    <license>MIT</license>
+    <keywords>cordova,plugin,device,control</keywords>
+
+  
+    <js-module src="www/DeviceControl.js" name="DeviceControl">
+        <clobbers target="SpeechRecognition" />
+    </js-module>
+    
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="DeviceControl" >
+        <param name="android-package" value="org.apache.cordova.deviceControl"/>
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+    </config-file>
+    
+    <source-file src="android/DeviceControl.java" target-dir="src/org/apache/cordova/device_control" />
+    
+  </platform>
+  
+</plugin>
