@@ -11,21 +11,21 @@
 
   
     <js-module src="www/DeviceControl.js" name="DeviceControl">
-        <clobbers target="SpeechRecognition" />
+        <clobbers target="DeviceControl" />
     </js-module>
     
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="DeviceControl" >
-        <param name="android-package" value="org.apache.cordova.deviceControl"/>
+        <param name="android-package" value="org.apache.cordova.devicecontrol.DeviceControl"/>
       </feature>
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
     </config-file>
     
-    <source-file src="android/DeviceControl.java" target-dir="src/org/apache/cordova/device_control" />
+    <source-file src="src/android/DeviceControl.java" target-dir="src/org/apache/cordova/device_control" />
     
   </platform>
   
