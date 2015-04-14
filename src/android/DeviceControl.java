@@ -1,4 +1,4 @@
-package org.apache.cordova.devicecontrol;
+package com.zLineup.cordova.plugin.deviceCtrl;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
@@ -26,15 +26,30 @@ public class DeviceControl extends CordovaPlugin {
         Context context=this.cordova.getActivity().getApplicationContext(); 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metrics);
+        
+        float dim_s, dim_l;
+        String orientation;
+        if (metrics.widthPixels>metrics.heightPixels) {
+            dim_s = metrics.heightPixels/metrics.xdpi;
+            dim_l = metrics.widthPixels/metrics.ydpi;
+            orientation = "tall";
+        } else {
+            dim_s = metrics.widthPixels/metrics.xdpi;
+            dim_l = metrics.heightPixels/metrics.ydpi;            
+            orientation = "wide";
+        }
         JSONObject resp = new JSONObject();
         try {
             resp.put("type", ACTION_DISPLAY_DIMENSIONS);
+            resp.put("dim_s", dim_s);
+            resp.put("dim_l", dim_l);
+            resp.put("orientation", orientation);
             resp.put("metrics", metrics);
         } catch (JSONException e) {
             callbackContext.error("Json error during  " + ACTION_DISPLAY_DIMENSIONS);
             return false;
         }
-        PluginResult pr = new PluginResult(PluginResult.Status.OK, "resp");
+        PluginResult pr = new PluginResult(PluginResult.Status.OK, resp);
         callbackContext.sendPluginResult(pr);
         Log.v(TAG, "ACTION_DISPLAY_DIMENSIONS 2");
 

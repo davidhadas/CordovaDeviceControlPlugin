@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>s
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"
-    id="cordova.deviceControl" version="1.0.0">
-    <engines>
-        <engine name="cordova" version=">=3.0.0" />
-    </engines>
-  
+    id="com.zLineup.cordova.plugin.deviceCtrl" version="1.0.0">
+    <name>DeviceControl</name>
     <description>Cordova Device Control Plugin</description>
     <license>MIT</license>
     <keywords>cordova,plugin,device,control</keywords>
 
-  
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+    
     <js-module src="www/DeviceControl.js" name="DeviceControl">
         <clobbers target="DeviceControl" />
     </js-module>
@@ -18,14 +18,14 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="DeviceControl" >
-        <param name="android-package" value="org.apache.cordova.devicecontrol.DeviceControl"/>
+        <param name="android-package" value="com.zLineup.cordova.plugin.deviceCtrl.DeviceControl"/>
       </feature>
     </config-file>
 
     <config-file target="AndroidManifest.xml" parent="/manifest">
     </config-file>
     
-    <source-file src="src/android/DeviceControl.java" target-dir="src/org/apache/cordova/device_control" />
+    <source-file src="src/android/DeviceControl.java" target-dir="src/com/zLineup/cordova/plugin/deviceCtrl" />
     
   </platform>
   
