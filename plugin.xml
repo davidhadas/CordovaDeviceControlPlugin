@@ -15,18 +15,23 @@
     </js-module>
     
   <platform name="android">
-
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="DeviceControl" >
         <param name="android-package" value="com.zLineup.cordova.plugin.deviceCtrl.DeviceControl"/>
       </feature>
     </config-file>
-
     <config-file target="AndroidManifest.xml" parent="/manifest">
     </config-file>
-    
     <source-file src="src/android/DeviceControl.java" target-dir="src/com/zLineup/cordova/plugin/deviceCtrl" />
     
   </platform>
-  
+     <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="DeviceControl">
+                <param name="ios-package" value="CDVDeviceControl" />
+            </feature>
+        </config-file>
+        <header-file src="src/ios/CDVDeviceControl.h" target-dir="DeviceControl"/>
+        <source-file src="src/ios/CDVDeviceControl.m" target-dir="DeviceControl"/>
+    </platform>
 </plugin>
