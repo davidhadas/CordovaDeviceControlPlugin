@@ -3,6 +3,6 @@
 
 @interface CDVDeviceControl : CDVPlugin
 
-- (void)echo:(CDVInvokedUrlCommand*)command;
+- (void)displayDimensions:(CDVInvokedUrlCommand*)command;
 
 @end

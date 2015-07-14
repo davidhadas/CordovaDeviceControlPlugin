@@ -5,34 +5,40 @@
 
 @implementation CDVDeviceControl
 
-- (void)echo:(CDVInvokedUrlCommand*)command
+- (void)displayDimensions:(CDVInvokedUrlCommand*)command
 {
-    CDVPluginResult* pluginResult = nil;
     NSLog(@"ACTION_DISPLAY_DIMENSIONS start");
-    NSMutableDictionary dict = @{};
-    CGRect screenBounds = [[UIScreen mainScreen] bounds];
-    CGFloat screenScale = [[UIScreen mainScreen] scale];
-    NSNumber dim_s = screenBounds.size.width * screenScale;
-    NSNumber dim_l = screenBounds.size.height * screenScale;
+    CDVPluginResult* pluginResult = nil;
+    
+    @try {
+        // do something
+        //CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        CGFloat screenScale = [[UIScreen mainScreen] scale];
+        NSNumber *dim_s, *dim_l;
+        NSString *orientation;
+        
+        if (screenBounds.size.width>screenBounds.size.height) {
+            orientation = @"wide";
+        } else {
+            orientation = @"tall";
+        }
+        dim_s = @(screenScale);
+        dim_l = @(screenScale);
+        NSDictionary *dict = @{
+                           @"type" : @"ACTION_DISPLAY_DIMENSIONS",
+                           @"dim_s" : dim_s,
+                           @"dim_l" : dim_l,
+                           @"orientation" : orientation
+                       };
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
 
-
-    if (screenBounds.size.width>screenBounds.size.height) {
-        dim_s = screenBounds.size.height * screenScale;
-        dim_l = screenBounds.size.width * screenScale;
-        orientation = "wide";
-    } else {
-        dim_s = screenBounds.size.width * screenScale;
-        dim_l = screenBounds.size.height * screenScale;
-        orientation = "tall";
     }
-
-    [dict setObject:@"ACTION_DISPLAY_DIMENSIONS" forKey:@"type"];
-    [dict setObject:dim_s forKey:@"dim_s"];
-    [dict setObject:dim_l forKey:@"dim_l"];
-    [dict setObject:orientation forKey:@"orientation"];
-    [dict setObject:screenBounds forKey:@"metrics"];
-    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
-
+    @catch (NSException *exception) {
+        NSLog(@"ACTION_DISPLAY_DIMENSIONS caout error");
+        NSLog(@"ACTION_DISPLAY_DIMENSIONS: %@", exception.name);
+        NSLog(@"ACTION_DISPLAY_DIMENSIONS: %@", exception.reason);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     NSLog(@"ACTION_DISPLAY_DIMENSIONS end");
 }
