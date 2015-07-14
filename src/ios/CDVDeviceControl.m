@@ -12,7 +12,7 @@
     
     @try {
         // do something
-        //CGRect screenBounds = [[UIScreen mainScreen] bounds];
+        CGRect screenBounds = [[UIScreen mainScreen] bounds];
         CGFloat screenScale = [[UIScreen mainScreen] scale];
         NSNumber *dim_s, *dim_l;
         NSString *orientation;
