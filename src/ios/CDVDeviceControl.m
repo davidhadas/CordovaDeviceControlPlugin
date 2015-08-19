@@ -3,7 +3,27 @@
 #import "CDVDeviceControl.h"
 #import <Cordova/CDV.h>
 
+
 @implementation CDVDeviceControl
+
+- (void)displayDimensions:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"ACTION_CLEAR start");
+    CDVPluginResult* pluginResult = nil;
+    
+    @try {
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"ACTION_CLEAR caout error");
+        NSLog(@"ACTION_CLEAR: %@", exception.name);
+        NSLog(@"ACTION_CLEAR: %@", exception.reason);
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+    }        
+    NSLog(@"ACTION_CLEAR end");
+}
 
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command
 {

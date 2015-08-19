@@ -15,13 +15,51 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+
 public class DeviceControl extends CordovaPlugin {
   private static final String TAG = DeviceControl.class.getSimpleName();
   public static final String ACTION_DISPLAY_DIMENSIONS = "displayDimensions";
+  public static final String ACTION_CLEAR = "clear";
+  private CallbackContext callbackContext;
 
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
-    if (ACTION_DISPLAY_DIMENSIONS.equals(action)) {
-        Log.v(TAG, "ACTION_DISPLAY_DIMENSIONS 1");
+    Log.v(TAG,"Execute  start");
+    this.callbackContext = callbackContext;
+    
+    if (ACTION_CLEAR.equals(action)) {
+        Log.v(TAG,"ACTION_CLEAR  start");
+        
+        final DeviceControl self = this;
+        cordova.getActivity().runOnUiThread( new Runnable() {
+            public void run()
+            {
+                try
+                {
+                    // clear the cache
+                    Log.v(TAG,"ACTION_CLEAR  clearing");
+                    self.webView.clearCache(true);
+                    Log.v(TAG,"ACTION_CLEAR  done");
+                    
+                    // send success result to cordova
+                    PluginResult result = new PluginResult(PluginResult.Status.OK);
+                    result.setKeepCallback(false); 
+                    self.callbackContext.sendPluginResult(result);
+                }
+                catch( Exception e )
+                {
+                    String msg = "Error while clearing webview cache.";
+                    Log.e(TAG, msg );
+                    
+                    // return error answer to cordova
+                    PluginResult result = new PluginResult(PluginResult.Status.ERROR, msg);
+                    result.setKeepCallback(false); 
+                    self.callbackContext.sendPluginResult(result);
+                }
+            }
+        });
+        return true;
+    } else if (ACTION_DISPLAY_DIMENSIONS.equals(action)) {
+        Log.v(TAG, "ACTION_DISPLAY_DIMENSIONS start");
         DisplayMetrics metrics = new DisplayMetrics();
         Context context=this.cordova.getActivity().getApplicationContext(); 
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
