@@ -12,12 +12,21 @@
     CDVPluginResult* pluginResult = nil;
     
     @try {
+        NSLog(@"ACTION_CLEAR mid");
+        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
+        [NSURLCache setSharedURLCache:sharedCache];
+        [sharedCache release];
+        NSLog(@"ACTION_CLEAR mid end");
+    
+        /*    
+
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        */
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
     @catch (NSException *exception) {
-        NSLog(@"ACTION_CLEAR caout error");
+        NSLog(@"ACTION_CLEAR catch error");
         NSLog(@"ACTION_CLEAR: %@", exception.name);
         NSLog(@"ACTION_CLEAR: %@", exception.reason);
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
