@@ -1,9 +1,9 @@
-/********* CDVCDeviceControl.h Cordova Plugin Header *******/
+/********* CDeviceControl.h Cordova Plugin Header *******/
 #import <Cordova/CDV.h>
 
-@interface CDVDeviceControl : CDVPlugin
+@interface DeviceControl : CDVPlugin
 
-//-(void)clear: (CDVInvokedUrlCommand*)command;
+-(void)clear: (CDVInvokedUrlCommand*)command;
 
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command;
 
