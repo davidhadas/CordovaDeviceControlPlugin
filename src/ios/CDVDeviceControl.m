@@ -6,6 +6,15 @@
 
 @implementation CDVDeviceControl
 
+- (void)pluginInitialize 	
+{
+        NSLog(@"ACTION_INIT ");
+        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:32*1024*1024 diskPath:@"nsurlcache"];
+        [NSURLCache setSharedURLCache:sharedCache];
+        NSLog(@"ACTION_INIT end");
+
+}
+
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"ACTION_CLEAR start");
@@ -13,15 +22,8 @@
     
     @try {
         NSLog(@"ACTION_CLEAR mid");
-        NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:0 diskCapacity:0 diskPath:nil];
-        [NSURLCache setSharedURLCache:sharedCache];
-        [sharedCache release];
-        NSLog(@"ACTION_CLEAR mid end");
-    
-        /*    
 
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        */
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
