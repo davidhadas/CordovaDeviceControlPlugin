@@ -29,6 +29,7 @@
         <config-file target="config.xml" parent="/*">
             <feature name="DeviceControl">
                 <param name="ios-package" value="CDVDeviceControl" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
         <header-file src="src/ios/CDVDeviceControl.h" target-dir="DeviceControl"/>
