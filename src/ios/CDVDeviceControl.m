@@ -5,7 +5,7 @@
 
 
 @implementation CDVDeviceControl
-
+/*
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"ACTION_CLEAR start");
@@ -18,10 +18,10 @@
         [sharedCache release];
         NSLog(@"ACTION_CLEAR mid end");
     
-        /*    
+           
 
-        [[NSURLCache sharedURLCache] removeAllCachedResponses];
-        */
+        // [[NSURLCache sharedURLCache] removeAllCachedResponses];
+        
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
@@ -33,7 +33,7 @@
     }        
     NSLog(@"ACTION_CLEAR end");
 }
-
+*/
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"ACTION_DISPLAY_DIMENSIONS start");
@@ -45,14 +45,18 @@
         CGFloat screenScale = [[UIScreen mainScreen] scale];
         NSNumber *dim_s, *dim_l;
         NSString *orientation;
+        CGFloat physicalWidth = screenBounds.size.width * scale;
+        CGFloat physicalHeight = screenBounds.size.height * scale;
         
         if (screenBounds.size.width>screenBounds.size.height) {
             orientation = @"wide";
+            dim_s = @(physicalHeight);
+            dim_l = @(physicalHeight);
         } else {
             orientation = @"tall";
+            dim_s = @(physicalHeight);
+            dim_l = @(physicalHeight);
         }
-        dim_s = @(screenScale);
-        dim_l = @(screenScale);
         NSDictionary *dict = @{
                            @"type" : @"ACTION_DISPLAY_DIMENSIONS",
                            @"dim_s" : dim_s,

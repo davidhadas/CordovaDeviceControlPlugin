@@ -3,10 +3,10 @@
 
 @interface CDVDeviceControl : CDVPlugin
 
--(void)clear: (CDVInvokedUrlCommand*)command;
+//-(void)clear: (CDVInvokedUrlCommand*)command;
 
 - (void)displayDimensions:(CDVInvokedUrlCommand*)command;
 
-@property (nonatomic, strong) CDVInvokedUrlCommand* command;
+//@property (nonatomic, strong) CDVInvokedUrlCommand* command;
 
 @end
