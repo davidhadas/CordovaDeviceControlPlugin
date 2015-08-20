@@ -25,14 +25,14 @@
     <source-file src="src/android/DeviceControl.java" target-dir="src/com/zLineup/cordova/plugin/deviceCtrl" />
     
   </platform>
-     <platform name="ios">
-        <config-file target="config.xml" parent="/*">
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
             <feature name="DeviceControl">
-                <param name="ios-package" value="CDVDeviceControl" />
+                <param name="ios-package" value="DeviceControl" />
                 <param name="onload" value="true" />
             </feature>
-        </config-file>
-        <header-file src="src/ios/CDVDeviceControl.h" target-dir="DeviceControl"/>
-        <source-file src="src/ios/CDVDeviceControl.m" target-dir="DeviceControl"/>
-    </platform>
+    </config-file>
+    <header-file src="src/ios/DeviceControl.h" target-dir="DeviceControl"/>
+    <source-file src="src/ios/DeviceControl.m" target-dir="DeviceControl"/>
+  </platform>
 </plugin>
