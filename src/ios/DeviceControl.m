@@ -2,7 +2,8 @@
 
 #import "DeviceControl.h"
 #import <Cordova/CDV.h>
-
+#include <sys/types.h>
+#include <sys/sysctl.h>
 
 @implementation DeviceControl
 
@@ -12,8 +13,8 @@
         NSURLCache *sharedCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:32*1024*1024 diskPath:@"nsurlcache"];
         [NSURLCache setSharedURLCache:sharedCache];
         NSLog(@"ACTION_INIT end");
-
 }
+
 - (void)clear:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"ACTION_CLEAR start");
@@ -44,7 +45,13 @@
     CDVPluginResult* pluginResult = nil;
     
     @try {
-        // do something
+        size_t size;
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        char *model = malloc(size);
+        sysctlbyname("hw.machine", model, &size, NULL, 0);
+        NSString *sDeviceModel = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
+        free(model); 
+
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         CGFloat screenScale = [[UIScreen mainScreen] scale];
         NSNumber *dim_s, *dim_l;
@@ -71,7 +78,8 @@
         */
         NSDictionary *dict = @{
                            @"type" : @"ACTION_DISPLAY_DIMENSIONS",
-                           @"orientation" : orientation
+                           @"orientation" : orientation,
+                           @"model" : sDeviceModel
                        };
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
     }
